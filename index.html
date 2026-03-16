@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>znik.org</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        /* Animated gradient background */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .bg::before {
+            content: '';
+            position: absolute;
+            inset: -50%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                #ff006620 0deg,
+                #00d4ff20 60deg,
+                #7b2ff720 120deg,
+                #f7971e20 180deg,
+                #ff006620 240deg,
+                #00ffcc20 300deg,
+                #ff006620 360deg
+            );
+            animation: spin 20s linear infinite;
+        }
+
+        .bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, #7b2ff715 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, #00d4ff10 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, #0a0a0f 0%, transparent 100%);
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Floating orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 300px; height: 300px;
+            background: #ff0066;
+            top: 10%; left: 15%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 250px; height: 250px;
+            background: #00d4ff;
+            bottom: 15%; right: 10%;
+            animation-delay: -3s;
+        }
+
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: #7b2ff7;
+            top: 50%; left: 60%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -20px) scale(1.05); }
+            66% { transform: translate(-20px, 15px) scale(0.95); }
+        }
+
+        /* Content */
+        .card {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 3rem 4rem;
+            max-width: 520px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.35);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+            background: linear-gradient(135deg, #fff 0%, #ff0066 25%, #7b2ff7 50%, #00d4ff 75%, #fff 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 6s ease infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .dot {
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1;
+            background: linear-gradient(135deg, #ff0066, #f7971e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, #ff0066, #7b2ff7, #00d4ff);
+            margin: 2rem auto;
+            border-radius: 1px;
+        }
+
+        .contact {
+            margin-top: 0.5rem;
+        }
+
+        .contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: #fff;
+        }
+
+        .contact a:hover::before {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact a svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact a:hover svg {
+            opacity: 1;
+        }
+
+        .links {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .contact a:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        /* Noise texture overlay */
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="card">
+        <div class="tag">personal domain</div>
+        <h1>znik<span class="dot">.</span>org</h1>
+
+        <p class="subtitle">
+            A relic from the gaming days, now quietly powering<br>
+            mail, cloud &amp; the digital things behind the scenes.
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="contact">
+            <div class="links">
+                <a href="mailto:me@znik.org">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
+                    me@znik.org
+                </a>
+                <a href="https://markusendl.com" target="_blank" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                    markusendl.com <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
