@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخ ماركوس عبد العزيز</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&family=Inter:wght@300;400&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background: #0d0b0e;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Decorative background pattern */
+        .bg-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath d='M40 0L80 40L40 80L0 40Z' fill='none' stroke='%23c9a84c' stroke-width='0.5'/%3E%3Cpath d='M40 10L70 40L40 70L10 40Z' fill='none' stroke='%23c9a84c' stroke-width='0.3'/%3E%3Cpath d='M40 20L60 40L40 60L20 40Z' fill='none' stroke='%23c9a84c' stroke-width='0.3'/%3E%3C/svg%3E");
+            background-size: 80px 80px;
+        }
+
+        /* Gold gradient accents */
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(139, 69, 19, 0.06) 0%, transparent 60%);
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Ornamental divider */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .ornament-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+        }
+
+        .ornament-diamond {
+            width: 8px;
+            height: 8px;
+            background: #c9a84c;
+            transform: rotate(45deg);
+        }
+
+        /* Title */
+        h1 {
+            font-family: 'Noto Naskh Arabic', 'Amiri', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.4;
+            background: linear-gradient(135deg, #f4e4ba 0%, #c9a84c 30%, #f4e4ba 50%, #c9a84c 70%, #8b6914 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gold-shimmer 4s ease infinite;
+            text-shadow: none;
+        }
+
+        @keyframes gold-shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            color: rgba(201, 168, 76, 0.6);
+            margin-top: 0.5rem;
+            direction: ltr;
+        }
+
+        /* Photo gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+            direction: ltr;
+        }
+
+        .photo-frame {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            border: 1px solid rgba(201, 168, 76, 0.15);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            z-index: 2;
+            pointer-events: none;
+            transition: border-color 0.4s ease;
+        }
+
+        .photo-frame:hover::before {
+            border-color: rgba(201, 168, 76, 0.5);
+        }
+
+        .photo-frame:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(201, 168, 76, 0.1);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .photo-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Feature photo - first one larger */
+        .gallery .photo-frame:first-child {
+            grid-column: span 2;
+            aspect-ratio: 4/3;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 80px rgba(201, 168, 76, 0.15);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 50%;
+            background: transparent;
+            color: #c9a84c;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(201, 168, 76, 0.1);
+            border-color: #c9a84c;
+        }
+
+        /* Footer ornament */
+        .footer {
+            margin-top: 4rem;
+            color: rgba(201, 168, 76, 0.25);
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1rem; letter-spacing: 0.15em; }
+            .gallery { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .gallery .photo-frame:first-child { grid-column: span 2; }
+            .container { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="bg-glow"></div>
+
+    <div class="container">
+        <div class="ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line"></div>
+        </div>
+
+        <h1>شيخ ماركوس عبد العزيز</h1>
+        <p class="subtitle">Sheik Markusabdulazis</p>
+
+        <div class="ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-line"></div>
+        </div>
+
+        <div class="gallery">
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.16.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 11.59.50.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 11.59.52.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 13.57.20.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 13.57.28.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.03.56.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.18.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.19.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.34.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.50.jpg" alt="Sheik Markusabdulazis">
+            </div>
+            <div class="photo-frame" onclick="openLightbox(this)">
+                <img src="images/2014-06-20 14.42.52.jpg" alt="Sheik Markusabdulazis">
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="ornament">
+                <div class="ornament-line"></div>
+                <div class="ornament-diamond"></div>
+                <div class="ornament-line"></div>
+            </div>
+            &#x2726;
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            document.getElementById('lightbox-img').src = img.src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
