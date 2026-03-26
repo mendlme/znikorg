@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "znik-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["http-server", "/Users/mendl/Library/CloudStorage/GoogleDrive-me@znik.org/My Drive/Claude/znik.org", "-p", "8090", "-c-1"],
+      "port": 8090
+    }
+  ]
+}
